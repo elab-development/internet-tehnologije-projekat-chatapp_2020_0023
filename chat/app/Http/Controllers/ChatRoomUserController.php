@@ -63,10 +63,25 @@ class ChatRoomUserController extends Controller
      }
  
      // Briše zapis iz pivot tabele
-     public function destroy($id)
+     public function destroy($id)  //ova metoda radi soft delete
      {
          $chatRoomUser = ChatRoomUser::findOrFail($id);
          $chatRoomUser->delete();
          return response()->json(null, 204);
      }
+
+     public function restore($id)  //ako je neki objekat obrisan, mozemo da ga povratimo iz baze jer on nije bas stvarno obirsan (jer smo korisitli soft delete)
+    {
+        $chatRoomUser = ChatRoomUser::withTrashed()->findOrFail($id);
+        $chatRoomUser->restore();
+        return response()->json($chatRoomUser, 200);
+    }
+
+    public function forceDestroy($id)  //ova metoda bi obrisala zaista objekat iz baze
+    {
+        $chatRoomUser = ChatRoomUser::withTrashed()->findOrFail($id);
+        $chatRoomUser->forceDelete();
+        return response()->json(null, 204);
+    }
+
 }
