@@ -17,7 +17,10 @@ class ChatRoomFactory extends Factory
     public function definition()
     {
         return [
-            //
+            'name' => $this->faker->word,
+            'is_private' => $this->faker->boolean,
+            'max_participants' => $this->faker->numberBetween(2, 10),
+            'description' => $this->faker->sentence,
         ];
     }
 }
