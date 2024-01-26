@@ -3,9 +3,9 @@
 use App\Http\Controllers\ChatRoomController;
 use App\Http\Controllers\ChatRoomUserController;
 use App\Http\Controllers\MessageController;
-use Illuminate\Http\Request;
+use Illuminate\Http\Request; 
 use Illuminate\Support\Facades\Route;
-
+use App\Http\Controllers\AuthController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -16,6 +16,17 @@ use Illuminate\Support\Facades\Route;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
+
+
+// Ruta za registraciju
+Route::post('/register', [AuthController::class, 'register']);
+
+// Ruta za prijavu
+Route::post('/login', [AuthController::class, 'login']);
+
+// Ruta za odjavu
+Route::post('/logout', [AuthController::class, 'logout'])->middleware('auth:sanctum');
+
 Route::apiResource('chat-rooms', ChatRoomController::class);
 Route::get('/chat-rooms/search', [ChatRoomController::class, 'search']);
 
