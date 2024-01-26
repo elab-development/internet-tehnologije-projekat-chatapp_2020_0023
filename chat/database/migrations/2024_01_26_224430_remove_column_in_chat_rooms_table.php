@@ -13,14 +13,8 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('messages', function (Blueprint $table) {
-            $table->id();
-            $table->text('body');
-        
-            $table->timestamp('sent_at')->nullable();
-            $table->timestamp('read_at')->nullable();
-            $table->softDeletes();
-            $table->timestamps();
+        Schema::table('chat_rooms', function (Blueprint $table) {
+            $table->dropColumn('user_id');
         });
     }
 
@@ -31,6 +25,8 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('messages');
+        Schema::table('chat_rooms', function (Blueprint $table) {
+            $table->integer('user_id');
+        });
     }
 };
