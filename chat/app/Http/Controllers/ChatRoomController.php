@@ -67,4 +67,36 @@ class ChatRoomController extends Controller
         $chatRoom->delete();
         return response()->json(null, 204);
     }
+
+
+    // Metoda za pretragu chat soba
+    public function search(Request $request)
+    {
+        $query = ChatRoom::query();
+
+        // Pretraga po imenu sobe
+        if ($request->has('name')) {
+            $query->where('name', 'like', '%' . $request->name . '%');
+        }
+
+        // Filtriranje na osnovu privatnosti sobe
+        if ($request->has('is_private')) {
+            $query->where('is_private', $request->is_private);
+        }
+
+        // Filtriranje na osnovu maksimalnog broja učesnika
+        if ($request->has('max_participants')) {
+            $query->where('max_participants', $request->max_participants);
+        }
+
+        // Pretraga na osnovu opisa sobe
+        if ($request->has('description')) {
+            $query->where('description', 'like', '%' . $request->description . '%');
+        }
+
+        // Izvršavanje upita i vraćanje rezultata
+        $chatRooms = $query->get();
+        return response()->json($chatRooms);
+    }
+
 }

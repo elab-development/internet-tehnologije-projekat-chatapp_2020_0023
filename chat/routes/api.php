@@ -17,6 +17,8 @@ use Illuminate\Support\Facades\Route;
 |
 */
 Route::apiResource('chat-rooms', ChatRoomController::class);
+Route::get('/chat-rooms/search', [ChatRoomController::class, 'search']);
+
 Route::apiResource('messages', MessageController::class);
 Route::prefix('chat-room-users')->group(function () {
     Route::get('/', [ChatRoomUserController::class, 'index']);
