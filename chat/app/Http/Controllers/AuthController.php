@@ -171,6 +171,27 @@ class AuthController extends Controller
     // Izvršavanje upita i vraćanje rezultata
     $users = $query->get();
     return response()->json($users);
-}
+    }
+    public function changePassword(Request $request)
+    {
+        $user = $request->user();
+
+        // Validacija podataka
+        $request->validate([
+            'current_password' => 'required',
+            'new_password' => 'required|string|min:6|confirmed',
+        ]);
+
+        // Provera da li trenutna lozinka odgovara
+        if (!Hash::check($request->current_password, $user->password)) {
+            return response()->json(['message' => 'Trenutna lozinka nije tačna'], 400);
+        }
+
+        // Ažuriranje lozinke
+        $user->password = Hash::make($request->new_password);
+        $user->save();
+
+        return response()->json(['message' => 'Lozinka je uspešno promenjena']);
+    }
 
 }
