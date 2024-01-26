@@ -75,5 +75,59 @@ class AuthController extends Controller
         return response()->json(['message' => 'Uspešno ste se odjavili']);
     }
  
+    public function userProfile(Request $request)  //profil ulogovanog korisnika
+    {
+        return response()->json($request->user());
+    }
 
+
+    public function updateUser(Request $request)
+    {
+        $user = $request->user();
+    
+        $validator = Validator::make($request->all(), [
+            'name' => 'string|max:255',
+            'email' => 'string|email|max:255|unique:users,email,' . $user->id,
+            'password' => 'sometimes|min:6',
+            'profile_image' => 'nullable|image|max:2048',
+            'date_of_birth' => 'date|before:today',
+            'bio' => 'nullable|string',
+            'location' => 'string|max:255',
+          
+        ]);
+    
+        if ($validator->fails()) {
+            return response()->json($validator->errors(), 400);
+        }
+    
+        // Ažuriranje podataka
+        if ($request->has('name')) {
+            $user->name = $request->name;
+        }
+        if ($request->has('email')) {
+            $user->email = $request->email;
+        }
+        if ($request->has('password')) {
+            $user->password = Hash::make($request->password);
+        }
+        if ($request->hasFile('profile_image')) {
+            $profileImagePath = $request->file('profile_image')->store('profile_images', 'public');
+            $user->profile_image = $profileImagePath;
+        }
+        if ($request->has('date_of_birth')) {
+            $user->date_of_birth = $request->date_of_birth;
+        }
+        if ($request->has('bio')) {
+            $user->bio = $request->bio;
+        }
+        if ($request->has('location')) {
+            $user->location = $request->location;
+        }
+    
+        $user->save();
+    
+        return response()->json($user);
+    }
+     
+    
 }

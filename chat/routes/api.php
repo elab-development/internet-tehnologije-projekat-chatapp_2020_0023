@@ -24,8 +24,8 @@ Route::post('/register', [AuthController::class, 'register']);
 // Ruta za prijavu
 Route::post('/login', [AuthController::class, 'login']);
 
-// Ruta za odjavu
-Route::post('/logout', [AuthController::class, 'logout'])->middleware('auth:sanctum');
+ 
+
 
 Route::apiResource('chat-rooms', ChatRoomController::class);
 Route::get('/chat-rooms/search', [ChatRoomController::class, 'search']);
@@ -40,6 +40,11 @@ Route::prefix('chat-room-users')->group(function () {
     Route::post('/restore/{id}', [ChatRoomUserController::class, 'restore']);
     Route::delete('/force-delete/{id}', [ChatRoomUserController::class, 'forceDestroy']);
 });
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
+ 
+
+
+Route::middleware('auth:sanctum')->group(function () {
+    Route::post('/logout', [AuthController::class, 'logout']);
+    Route::get('/user/profile', [AuthController::class, 'userProfile']);
+    Route::put('/user/update', [AuthController::class, 'updateUser']);
 });
