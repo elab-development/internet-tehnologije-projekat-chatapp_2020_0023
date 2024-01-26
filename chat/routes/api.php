@@ -25,6 +25,7 @@ Route::post('/register', [AuthController::class, 'register']);
 Route::post('/login', [AuthController::class, 'login']);
 
  
+Route::get('/users/search', [AuthController::class, 'searchUsers']);
 
 
 Route::apiResource('chat-rooms', ChatRoomController::class);

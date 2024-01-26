@@ -129,5 +129,48 @@ class AuthController extends Controller
         return response()->json($user);
     }
      
-    
+    public function searchUsers(Request $request)
+{
+    $query = User::query();
+
+    // Filtriranje na osnovu imena
+    if ($request->has('name')) {
+        $query->where('name', 'like', '%' . $request->name . '%');
+    }
+
+    // Filtriranje na osnovu emaila
+    if ($request->has('email')) {
+        $query->where('email', 'like', '%' . $request->email . '%');
+    }
+
+    // Filtriranje na osnovu datuma rođenja
+    if ($request->has('date_of_birth')) {
+        $query->whereDate('date_of_birth', '=', $request->date_of_birth);
+    }
+
+    // Filtriranje na osnovu statusa
+    if ($request->has('status')) {
+        $query->where('status', 'like', '%' . $request->status . '%');
+    }
+
+    // Filtriranje na osnovu poslednjeg online statusa
+    if ($request->has('last_online_at')) {
+        $query->whereDate('last_online_at', '=', $request->last_online_at);
+    }
+
+    // Filtriranje na osnovu biografije
+    if ($request->has('bio')) {
+        $query->where('bio', 'like', '%' . $request->bio . '%');
+    }
+
+    // Filtriranje na osnovu lokacije
+    if ($request->has('location')) {
+        $query->where('location', 'like', '%' . $request->location . '%');
+    }
+
+    // Izvršavanje upita i vraćanje rezultata
+    $users = $query->get();
+    return response()->json($users);
+}
+
 }
