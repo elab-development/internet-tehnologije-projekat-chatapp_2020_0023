@@ -1,0 +1,72 @@
+.user-profile-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: #8ee3ef;  
+    color: #254e70;  
+    padding: 20px;
+  }
+  
+  .user-info-display {
+    text-align: center;
+  }
+  
+  .profile-image {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    margin-bottom: 10px;
+  }
+  
+  .edit-button {
+    background-color: #37718e;  
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+  }
+  
+  .edit-button:hover {
+    background-color: #c33c54;  
+  }
+  
+  .profile-form,
+  .password-form {
+    margin-top: 20px;
+    width: 100%;
+    max-width: 400px;
+    background-color: #254e70;  
+    padding: 20px;
+    border-radius: 10px;
+  }
+  
+  input[type="text"],
+  input[type="email"],
+  input[type="password"],
+  input[type="date"],
+  input[type="file"] {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    border: 1px solid #37718e;  
+  }
+  
+  button {
+    width: 100%;
+    padding: 10px;
+    border-radius: 5px;
+    border: none;
+    color: white;
+    background-color: #c33c54;  
+    cursor: pointer;
+  }
+  
+  button:hover {
+    background-color: #37718e; 
+  }
+  
