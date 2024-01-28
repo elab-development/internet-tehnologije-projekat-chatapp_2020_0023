@@ -1,12 +1,15 @@
-import logo from './logo.svg';
+ 
 import './App.css';
 import Pocetna from './komponente/pocetna/Pocetna';
-
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 function App() {
   return (
-    <div className="App">
-      <Pocetna></Pocetna>
-    </div>
+    <Router>
+    <Routes>
+      <Route path="/" element={<Pocetna />} />
+      
+    </Routes>
+  </Router>
   );
 }
 
