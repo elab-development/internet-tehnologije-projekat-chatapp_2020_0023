@@ -1,46 +1,61 @@
-.auth-container {
+.auth-form {
+    font-family: 'Helvetica', sans-serif;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     height: 100vh;
-    background-color: #aef3e7;  
-  }
-  
-  .login-form,
-  .register-form {
-    background-color: #254e70;  
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-    width: 300px;
-    color: white;
-    text-align: center;
-  }
-  
-  h2 {
-    margin-bottom: 20px;
+    background-color: #8ee3ef;  
+    color: #254e70; 
+}
+  .auth-form h2 {
+    color: #ffffff;
   }
   
   form {
     display: flex;
     flex-direction: column;
+    background-color: #254e70;  
+    padding: 40px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 300px;
+    max-width: 100%;
   }
   
-  input {
-    padding: 10px;
+  input[type="text"],
+  input[type="email"],
+  input[type="password"],
+  input[type="date"],
+  input[type="file"] {
+    padding: 15px;
     margin-bottom: 10px;
     border-radius: 5px;
     border: none;
+    outline: none;
+    font-size: 16px;
+  }
+  
+  input[type="text"]::placeholder,
+  input[type="email"]::placeholder,
+  input[type="password"]::placeholder,
+  input[type="date"]::placeholder {
+    color: #aef3e7;
+  }
+  
+  input[type="file"] {
+    background-color: #37718e;  
+    color: white;
   }
   
   button {
-    padding: 10px;
-    background-color: #8ee3ef;  
+    background-color: #c33c54; 
     color: white;
+    padding: 15px;
     border: none;
     border-radius: 5px;
     cursor: pointer;
+    font-size: 18px;
     margin-top: 10px;
   }
   
@@ -48,13 +63,19 @@
     background-color: #37718e;  
   }
   
-  p {
+  button:active {
+    transform: scale(0.98);
+  }
+   
+  .auth-form button:last-of-type {
+    background-color: transparent;
+    border: 2px solid #c33c54; 
     color: #c33c54;  
-    cursor: pointer;
-    margin-top: 15px;
+    margin-top: 20px;
   }
   
-  p:hover {
-    text-decoration: underline;
+  .auth-form button:last-of-type:hover {
+    background-color: #c33c54;  
+    color: white;
   }
   
