@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import './AuthForm.css';
+import InputField from './InputField';
 const AuthForm = () => {
   const [isLogin, setIsLogin] = useState(true);
   const [formData, setFormData] = useState({
@@ -61,49 +62,49 @@ const AuthForm = () => {
       <form onSubmit={handleSubmit}>
         {!isLogin && (
           <>
-            <input
+            <InputField
               type="text"
               name="name"
               placeholder="Name"
               value={formData.name}
               onChange={handleInputChange}
             />
-            <input
+            <InputField
               type="date"
               name="date_of_birth"
               placeholder="Date of Birth"
               value={formData.date_of_birth}
               onChange={handleInputChange}
             />
-            <input
+            <InputField
               type="text"
               name="bio"
               placeholder="Bio"
               value={formData.bio}
               onChange={handleInputChange}
             />
-            <input
+            <InputField
               type="text"
               name="location"
               placeholder="Location"
               value={formData.location}
               onChange={handleInputChange}
             />
-            <input
+            <InputField
               type="file"
               name="profile_image"
               onChange={handleFileChange}
             />
           </>
         )}
-        <input
+        <InputField
           type="email"
           name="email"
           placeholder="Email"
           value={formData.email}
           onChange={handleInputChange}
         />
-        <input
+        <InputField
           type="password"
           name="password"
           placeholder="Password"
@@ -111,7 +112,7 @@ const AuthForm = () => {
           onChange={handleInputChange}
         />
         {!isLogin && (
-          <input
+          <InputField
             type="password"
             name="confirmPassword"
             placeholder="Confirm Password"
