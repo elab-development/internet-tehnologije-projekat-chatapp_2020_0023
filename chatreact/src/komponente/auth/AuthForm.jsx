@@ -35,6 +35,7 @@ const AuthForm = ({setToken}) => {
         });
         console.log(response.data);
         localStorage.setItem("auth_token",response.data.token);
+        localStorage.setItem("auth_id",response.data.user.id);
         setToken(response.data.token)
         navigate('/chatrooms')
       } catch (error) {

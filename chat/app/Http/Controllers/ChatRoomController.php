@@ -8,10 +8,15 @@ use Illuminate\Support\Facades\Validator;
 
 class ChatRoomController extends Controller
 {
-    // Prikazuje sve chat sobe
+    // Prikazuje sve chat sobe koje su javne i kojima ulogovani korisnik vec nije pridruzen //ovu metodu koristimo na frontu da omogucimo useru da moze da se pridruzi nekom chat roomu kako bi mogao da salje poruke, ne zelimo da mu prikazemo chat rooms u koje je vec uclanjen
     public function index()
     {
-        $chatRooms = ChatRoom::all();
+        $user = auth()->user(); //uzimamo ulogovanog usera 
+        $chatRooms = ChatRoom::where('is_private', false)
+                ->whereDoesntHave('participants', function ($query) use ($user) {
+                    $query->where('user_id', $user->id);
+                })
+                ->get();
         return response()->json($chatRooms);
     }
 

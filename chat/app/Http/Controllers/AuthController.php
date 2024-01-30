@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\UserResource;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -66,7 +67,7 @@ class AuthController extends Controller
 
         $token = $user->createToken(Str::random(40))->plainTextToken;
 
-        return response()->json(['token' => $token], 200);
+        return response()->json(['token' => $token, 'user'=>new UserResource($user)], 200);
     }
 
     public function logout(Request $request)
