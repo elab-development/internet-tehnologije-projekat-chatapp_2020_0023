@@ -14,14 +14,14 @@ class AuthController extends Controller
     {
         $validator = Validator::make($request->all(), [
             'name' => 'required|string|max:255',
-    'email' => 'required|string|email|max:255|unique:users',
-    'password' => 'required|string|min:6',
-    'profile_image' => 'nullable|image|max:2048',
-    'date_of_birth' => 'required|date|before:today',
-    'status' => 'sometimes|string|max:255',
-    'last_online_at' => 'sometimes|date',
-    'bio' => 'nullable|string',
-    'location' => 'nullable|string|max:255',
+            'email' => 'required|string|email|max:255|unique:users',
+            'password' => 'required|string|min:6',
+            'profile_image' => 'nullable|image|max:2048',
+            'date_of_birth' => 'required|date|before:today',
+            'status' => 'sometimes|string|max:255',
+            'last_online_at' => 'sometimes|date',
+            'bio' => 'nullable|string',
+            'location' => 'nullable|string|max:255',
              
         ]);
 
