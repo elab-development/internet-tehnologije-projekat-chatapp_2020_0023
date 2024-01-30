@@ -19,7 +19,7 @@ const Pocetna = () => {
           </p>
         </section>
         <section className="section2">
-          <h2>Prednosti Korištenja Društvenih Mreža</h2>
+          <h2>Prednosti  Društvenih Mreža</h2>
           <ul>
             <li>Brza komunikacija s prijateljima i obitelji širom svijeta.</li>
             <li>Mogućnost dijeljenja slika i videozapisa s drugima.</li>

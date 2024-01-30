@@ -1,0 +1,41 @@
+ 
+.chat-rooms-container {
+    background-color: #8ee3ef;
+    padding: 20px;
+    border-radius: 10px;
+    color: #254e70;
+  }
+  
+  .chat-rooms-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  .chat-rooms-table th,
+  .chat-rooms-table td {
+    text-align: left;
+    padding: 12px;
+    border-bottom: 1px solid #37718e;
+  }
+  
+  .chat-rooms-table th {
+    background-color: #37718e;
+    color: #aef3e7;
+  }
+  
+  .chat-rooms-table tbody tr:nth-child(even) {
+    background-color: #aef3e7;
+  }
+  
+  .chat-rooms-table tbody tr:hover {
+    background-color: #c33c54;
+    color: #ffffff;
+  }
+  
+  h1 {
+    text-align: center;
+    color: #37718e;
+  }
+  

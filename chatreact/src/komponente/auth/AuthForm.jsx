@@ -39,7 +39,7 @@ const AuthForm = ({setToken}) => {
         navigate('/chatrooms')
       } catch (error) {
         console.error('Login error:', error.response.data);
-        alert(error.response.data)
+        alert(error.response.data.message.toString()); 
       }
     } else {
       try {
@@ -57,6 +57,7 @@ const AuthForm = ({setToken}) => {
         console.log(response.data);
       } catch (error) {
         console.error('Registration error:', error.response.data);
+        alert(error.response.data.message.toString()); 
       }
     }
   };
