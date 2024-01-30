@@ -2,7 +2,9 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import './AuthForm.css';
 import InputField from './InputField';
-const AuthForm = () => {
+import { useNavigate } from 'react-router-dom';
+const AuthForm = ({setToken}) => {
+  let navigate= useNavigate();
   const [isLogin, setIsLogin] = useState(true);
   const [formData, setFormData] = useState({
     name: '',
@@ -33,8 +35,11 @@ const AuthForm = () => {
         });
         console.log(response.data);
         localStorage.setItem("auth_token",response.data.token);
+        setToken(response.data.token)
+        navigate('/chatrooms')
       } catch (error) {
         console.error('Login error:', error.response.data);
+        alert(error.response.data)
       }
     } else {
       try {

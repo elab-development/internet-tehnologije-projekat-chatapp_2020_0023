@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import './UserProfile.css';
-import { FaUserEdit } from 'react-icons/fa';
+import { FaBirthdayCake, FaEnvelope, FaMapMarkerAlt, FaUser, FaUserEdit } from 'react-icons/fa';
 import useUserData from '../korDefKuke/useUserData';
 const UserProfile = () => {
   const auth_token = localStorage.getItem('auth_token');
@@ -65,23 +65,23 @@ const UserProfile = () => {
     return <div>Error: {error}</div>;
   }
 return (
-<div className="user-profile-container">
-    <div className="user-info-display">
-      <img
-        src={userData.profile_image ? `http://127.0.0.1:8000/storage/${userData.profile_image}` : 'default-profile.png'}
-        alt="Profile"
-        className="profile-image"
-      />
+  <div className="user-profile-container">
+  <div className="user-info-display">
+        <img
+          src={userData.profile_image ? `http://127.0.0.1:8000/storage/${userData.profile_image}` : 'default-profile.png'}
+          alt="Profile"
+          className="profile-image"
+        />
 
-      <h2>{userData.name}</h2>
-      <p>{userData.email}</p>
-      <p>{userData.date_of_birth}</p>
-      <p>{userData.bio}</p>
-      <p>{userData.location}</p>
-      <button onClick={() => setIsEditing(true)} className="edit-button">
-        <FaUserEdit /> Uredi Profil
-      </button>
-    </div>
+        <h2><FaUser /> {userData.name}</h2>
+        <p><FaEnvelope /> {userData.email}</p>
+        <p><FaBirthdayCake /> {userData.date_of_birth}</p>
+        <p><FaMapMarkerAlt /> {userData.location}</p>
+        <p>{userData.bio}</p>
+        <button onClick={() => setIsEditing(true)} className="edit-button">
+          <FaUserEdit /> Uredi Profil
+        </button>
+      </div>
     
     {isEditing ? ( // Prikazivanje forme za uređivanje samo ako je isEditing true
       <>

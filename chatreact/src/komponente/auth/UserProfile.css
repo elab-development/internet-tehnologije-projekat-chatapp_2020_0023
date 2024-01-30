@@ -2,16 +2,20 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  background-color: #8ee3ef;  
+  background-color: #93c6e5;  
   color: #254e70;  
-  padding: 40px;
-  border-radius: 10px;  
+  padding: 40px; 
   position: relative;
+  
 }
 
 .user-info-display {
   text-align: center;
   margin-bottom: 30px; 
+  padding: 50px;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2); 
+  background-color: #8ee3ef;  
+  border-radius: 10px;
 }
 
 .profile-image {
@@ -77,9 +81,20 @@ input[type="file"] {
 h2 {
   color: #37718e;
   margin-bottom: 20px;  
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
 }
  
 .user-info-display p {
   margin-bottom: 5px;  
   font-size: 14px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.fa-icon {
+  margin-right: 8px;  
+  color: #37718e;  
 }
