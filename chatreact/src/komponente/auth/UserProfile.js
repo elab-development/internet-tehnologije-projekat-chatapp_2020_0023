@@ -2,38 +2,17 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import './UserProfile.css';
 import { FaUserEdit } from 'react-icons/fa';
+import useUserData from '../korDefKuke/useUserData';
 const UserProfile = () => {
-  const [userData, setUserData] = useState({
-    name: '',
-    email: '',
-    date_of_birth: '',
-    bio: '',
-    location: '',
-    
-  });
+  const auth_token = localStorage.getItem('auth_token');
+  const { userData, loading, error, setUserData } = useUserData(auth_token);  
   const [newPasswordData, setNewPasswordData] = useState({
     current_password: '',
     new_password: '',
     new_password_confirmation: '',
   });
 
-  useEffect(() => {
-    
-    const fetchUserData = async () => {
-      try {
-        const response = await axios.get('http://127.0.0.1:8000/api/user/profile', {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem('auth_token')}`,
-          },
-        });
-        setUserData(response.data);
-      } catch (error) {
-        console.error('Error fetching user data:', error.response.data);
-      }
-    };
-
-    fetchUserData();
-  }, []);
+ 
 
   const handleUserInputChange = (e) => {
     const { name, value } = e.target;
@@ -77,6 +56,13 @@ const UserProfile = () => {
       console.error('Change password error:', error.response.data);
     }
   };
+  if (loading) {
+    return <div>Loading...</div>;
+  }
+
+  if (error) {
+    return <div>Error: {error}</div>;
+  }
 
   return (
     <div className="user-profile-container">

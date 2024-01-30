@@ -1,72 +1,75 @@
 .user-profile-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    background-color: #8ee3ef;  
-    color: #254e70;  
-    padding: 20px;
-  }
-  
-  .user-info-display {
-    text-align: center;
-  }
-  
-  .profile-image {
-    width: 100px;
-    height: 100px;
-    border-radius: 50%;
-    margin-bottom: 10px;
-  }
-  
-  .edit-button {
-    background-color: #37718e;  
-    color: white;
-    border: none;
-    padding: 5px 10px;
-    border-radius: 5px;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    gap: 5px;
-  }
-  
-  .edit-button:hover {
-    background-color: #c33c54;  
-  }
-  
-  .profile-form,
-  .password-form {
-    margin-top: 20px;
-    width: 100%;
-    max-width: 400px;
-    background-color: #254e70;  
-    padding: 20px;
-    border-radius: 10px;
-  }
-  
-  input[type="text"],
-  input[type="email"],
-  input[type="password"],
-  input[type="date"],
-  input[type="file"] {
-    width: 100%;
-    padding: 10px;
-    margin-bottom: 10px;
-    border-radius: 5px;
-    border: 1px solid #37718e;  
-  }
-  
-  button {
-    width: 100%;
-    padding: 10px;
-    border-radius: 5px;
-    border: none;
-    color: white;
-    background-color: #c33c54;  
-    cursor: pointer;
-  }
-  
-  button:hover {
-    background-color: #37718e; 
-  }
-  
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: #8ee3ef;  
+  color: #254e70;  
+  padding: 40px;
+  border-radius: 10px;  
+}
+
+.user-info-display {
+  text-align: center;
+  margin-bottom: 30px; 
+}
+
+.profile-image {
+  width: 150px;  
+  height: 150px; 
+  border-radius: 50%;
+  margin-bottom: 20px;  
+  border: 3px solid #37718e;  
+}
+
+.edit-button,
+button {
+  background-color: #37718e;  
+  color: white;
+  border: none;
+  padding: 10px 15px;
+  border-radius: 5px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 16px;  
+  width: auto;  
+  margin: auto;  
+}
+
+.edit-button:hover,
+button:hover {
+  background-color: #c33c54;  
+}
+
+.profile-form {
+  width: 100%;
+  max-width: 400px;
+  background-color: #254e70;  
+  padding: 30px;  
+  border-radius: 10px;  
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+}
+
+input[type="text"],
+input[type="email"],
+input[type="password"],
+input[type="date"],
+input[type="file"] {
+  width: calc(100% - 20px);  
+  padding: 10px;
+  margin-bottom: 15px;  
+  border-radius: 5px;
+  border: 1px solid #37718e;  
+  font-size: 16px;  
+}
+ 
+h2 {
+  color: #37718e;
+  margin-bottom: 20px;  
+}
+ 
+.user-info-display p {
+  margin-bottom: 5px;  
+  font-size: 14px;
+}
