@@ -6,6 +6,7 @@
   color: #254e70;  
   padding: 40px;
   border-radius: 10px;  
+  position: relative;
 }
 
 .user-info-display {
@@ -49,6 +50,15 @@ button:hover {
   padding: 30px;  
   border-radius: 10px;  
   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+  position: absolute; /* Postavljanje apsolutne pozicije za .profile-form */
+  top: 50%; /* Pomera formu vertikalno na sredinu .user-profile-container */
+  left: 50%; /* Pomera formu horizontalno na sredinu .user-profile-container */
+  transform: translate(-50%, -50%); /* Centrira formu tačno na sredinu .user-profile-container */
+  z-index: 1; /* Postavite veći z-index da biste formu stavili iznad ostalog sadržaja */
+  background-color: rgba(37, 78, 112, 0.9); /* Promenite boju pozadine kako bi se bolje razlikovala */
+  backdrop-filter: blur(5px); /* Dodajte efekat zamagljivanja pozadine iza modala (ako je podržan u pregledaču) */
+  border: 2px solid #37718e; /* Dodajte ivicu modalu */
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1); /* Dodajte senku modalu */
 }
 
 input[type="text"],

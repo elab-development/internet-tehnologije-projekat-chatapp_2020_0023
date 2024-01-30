@@ -89,7 +89,7 @@ class AuthController extends Controller
             'name' => 'string|max:255',
             'email' => 'string|email|max:255|unique:users,email,' . $user->id,
             'password' => 'sometimes|min:6',
-            'profile_image' => 'nullable|image|max:2048',
+         //   'profile_image' => 'nullable|image|max:2048',
             'date_of_birth' => 'date|before:today',
             'bio' => 'nullable|string',
             'location' => 'string|max:255',

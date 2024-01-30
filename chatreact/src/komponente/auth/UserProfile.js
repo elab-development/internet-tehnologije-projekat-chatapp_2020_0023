@@ -12,7 +12,7 @@ const UserProfile = () => {
     new_password_confirmation: '',
   });
 
- 
+  const [isEditing, setIsEditing] = useState(false); 
 
   const handleUserInputChange = (e) => {
     const { name, value } = e.target;
@@ -33,6 +33,7 @@ const UserProfile = () => {
         },
       });
       console.log('Profile updated:', response.data);
+      setIsEditing(false);
     } catch (error) {
       console.error('Profile update error:', error.response.data);
     }
@@ -63,64 +64,72 @@ const UserProfile = () => {
   if (error) {
     return <div>Error: {error}</div>;
   }
-
-  return (
-    <div className="user-profile-container">
-        <div className="user-info-display">
-        <img
+return (
+<div className="user-profile-container">
+    <div className="user-info-display">
+      <img
         src={userData.profile_image ? `http://127.0.0.1:8000/storage/${userData.profile_image}` : 'default-profile.png'}
         alt="Profile"
         className="profile-image"
-        />
+      />
 
-        <h2>{userData.name}</h2>
-        <p>{userData.email}</p>
-        <p>{userData.date_of_birth}</p>
-        <p>{userData.bio}</p>
-        <p>{userData.location}</p>
-        <button onClick={handleProfileUpdate} className="edit-button">
-          <FaUserEdit /> Uredi Profil
-        </button>
-      </div>
-      <h2>Profil</h2>
-      <form onSubmit={handleProfileUpdate} className="profile-form">
-        <input
-          type="text"
-          name="name"
-          placeholder="Name"
-          value={userData.name}
-          onChange={handleUserInputChange}
-        />
-        <input
-          type="email"
-          name="email"
-          placeholder="Email"
-          value={userData.email}
-          onChange={handleUserInputChange}
-        />
-        <input
-          type="date"
-          name="date_of_birth"
-          placeholder="Date of Birth"
-          value={userData.date_of_birth}
-          onChange={handleUserInputChange}
-        />
-        <input
-          type="text"
-          name="bio"
-          placeholder="Bio"
-          value={userData.bio}
-          onChange={handleUserInputChange}
-        />
-        <input
-          type="text"
-          name="location"
-          placeholder="Location"
-          value={userData.location}
-          onChange={handleUserInputChange}
-        />
-        <button type="submit">Ažuriraj Profil</button>
-      </form>
+      <h2>{userData.name}</h2>
+      <p>{userData.email}</p>
+      <p>{userData.date_of_birth}</p>
+      <p>{userData.bio}</p>
+      <p>{userData.location}</p>
+      <button onClick={() => setIsEditing(true)} className="edit-button">
+        <FaUserEdit /> Uredi Profil
+      </button>
+    </div>
+    
+    {isEditing ? ( // Prikazivanje forme za uređivanje samo ako je isEditing true
+      <>
+        <h2>Profil</h2>
+        <form onSubmit={handleProfileUpdate} className="profile-form">
+          <input
+            type="text"
+            name="name"
+            placeholder="Name"
+            value={userData.name}
+            onChange={handleUserInputChange}
+          />
+          <input
+            type="email"
+            name="email"
+            placeholder="Email"
+            value={userData.email}
+            onChange={handleUserInputChange}
+          />
+          <input
+            type="date"
+            name="date_of_birth"
+            placeholder="Date of Birth"
+            value={userData.date_of_birth}
+            onChange={handleUserInputChange}
+          />
+          <input
+            type="text"
+            name="bio"
+            placeholder="Bio"
+            value={userData.bio}
+            onChange={handleUserInputChange}
+          />
+          <input
+            type="text"
+            name="location"
+            placeholder="Location"
+            value={userData.location}
+            onChange={handleUserInputChange}
+          />
+          <button type="submit">Ažuriraj Profil</button>
+          <button onClick={() => setIsEditing(false)} className="close-button">
+            Zatvori
+          </button>
+
+        </form>
+      </>
+    ) : null}
 
       {/* <h2>Promena Lozinke</h2>
       <form onSubmit={handleChangePassword}>
