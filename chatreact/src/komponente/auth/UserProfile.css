@@ -98,3 +98,25 @@ h2 {
   margin-right: 8px;  
   color: #37718e;  
 }
+
+.user-chat-rooms {
+  margin-top: 20px;
+}
+
+.user-chat-rooms h2 {
+  margin-bottom: 10px;
+}
+
+.user-chat-rooms ul {
+  list-style: none;
+  padding: 0;
+}
+
+.user-chat-rooms li {
+  margin-bottom: 10px;
+}
+
+.user-chat-rooms button {
+  margin-left: 10px;
+ 
+}

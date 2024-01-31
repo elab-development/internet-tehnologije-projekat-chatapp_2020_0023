@@ -38,7 +38,7 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('/user/profile', [AuthController::class, 'userProfile']);
     Route::put('/user/update', [AuthController::class, 'updateUser']);
     Route::post('/change-password', [AuthController::class, 'changePassword']);
-
+    Route::get('/my-chat-rooms', [ChatRoomController::class, 'myChatRooms']); 
     Route::prefix('chat-room-users')->group(function () {
         Route::get('/', [ChatRoomUserController::class, 'index']);
         Route::get('/{id}', [ChatRoomUserController::class, 'show']);

@@ -61,3 +61,9 @@
     background-color: #37718e;
     color: white;
   }
+  .search-input {
+    padding: 8px;
+    margin: 10px 0;
+    border: 1px solid #37718e;
+    border-radius: 5px;
+  }

@@ -19,7 +19,17 @@ class ChatRoomController extends Controller
                 ->get();
         return response()->json($chatRooms);
     }
-
+    public function myChatRooms() //dodata metoda koja vraca sve chat rooms u koje je ulogovan korisnik koji je ulogovan
+    {
+        $user = auth()->user(); // Uzimamo trenutno ulogovanog korisnika
+    
+        // Dohvatanje svih chat soba kojima je korisnik pridružen
+        $myChatRooms = ChatRoom::whereHas('participants', function ($query) use ($user) {
+            $query->where('user_id', $user->id);
+        })->get();
+    
+        return response()->json($myChatRooms);
+    }
     // Prikazuje specifičnu chat sobu
     public function show($id)
     {

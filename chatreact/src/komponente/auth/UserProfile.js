@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import './UserProfile.css';
+import { useNavigate } from 'react-router-dom';
 import { FaBirthdayCake, FaEnvelope, FaMapMarkerAlt, FaUser, FaUserEdit } from 'react-icons/fa';
 import useUserData from '../korDefKuke/useUserData';
 const UserProfile = () => {
@@ -11,7 +12,8 @@ const UserProfile = () => {
     new_password: '',
     new_password_confirmation: '',
   });
-
+  const [chatRooms, setChatRooms] = useState([]);
+  const navigate = useNavigate();
   const [isEditing, setIsEditing] = useState(false); 
 
   const handleUserInputChange = (e) => {
@@ -57,6 +59,22 @@ const UserProfile = () => {
       console.error('Change password error:', error.response.data);
     }
   };
+  useEffect(() => {
+    const fetchChatRooms = async () => {
+      try {
+        const response = await axios.get('http://127.0.0.1:8000/api/my-chat-rooms', {
+          headers: {
+            Authorization: `Bearer ${auth_token}`,
+          },
+        });
+        setChatRooms(response.data);
+      } catch (error) {
+        console.error('Error fetching chat rooms:', error.response.data);
+      }
+    };
+
+    fetchChatRooms();
+  }, [auth_token]);
   if (loading) {
     return <div>Loading...</div>;
   }
@@ -64,6 +82,16 @@ const UserProfile = () => {
   if (error) {
     return <div>Error: {error}</div>;
   }
+
+
+
+
+
+
+
+  const handleOpenRoom = (roomId) => {
+    navigate(`/chatrooms/${roomId}`);
+  };
 return (
   <div className="user-profile-container">
   <div className="user-info-display">
@@ -82,7 +110,17 @@ return (
           <FaUserEdit /> Uredi Profil
         </button>
       </div>
-    
+      <div className="user-chat-rooms">
+        <h2>Moje Chat Sobe</h2>
+        <ul>
+          {chatRooms.map((room) => (
+            <li key={room.id}>
+              {room.name}
+              <button onClick={() => handleOpenRoom(room.id)}>Otvori</button>
+            </li>
+          ))}
+        </ul>
+      </div>
     {isEditing ? ( // Prikazivanje forme za uređivanje samo ako je isEditing true
       <>
         <h2>Profil</h2>
