@@ -75,3 +75,22 @@
     color: #37718e;
   }
   
+
+  .search-input-container {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+  }
+  
+  .search-input-container label {
+    margin-right: 10px;
+    color: #37718e;
+  }
+  
+  .search-input {
+    padding: 8px;
+    border: 1px solid #37718e;
+    border-radius: 5px;
+    width: 100%;
+  }
+  

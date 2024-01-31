@@ -6,6 +6,7 @@ import './ChatRoom.css';
 const ChatRoom = () => {
   const [message, setMessage] = useState('');
   const [messages, setMessages] = useState([]);
+  const [searchTerm, setSearchTerm] = useState('');
   const userId = localStorage.getItem('auth_id');
   const authToken = localStorage.getItem('auth_token');
   const { id: chatRoomId } = useParams();
@@ -62,10 +63,28 @@ const ChatRoom = () => {
       console.error('Greška pri kreiranju poruke:', error);
     }
   };
+    const handleSearchChange = (e) => {
+        setSearchTerm(e.target.value);
+    };
+
+    const filteredMessages = messages.filter((msg) => {
+        const userMatch = msg.user.name.toLowerCase().includes(searchTerm.toLowerCase());
+        const bodyMatch = msg.body.toLowerCase().includes(searchTerm.toLowerCase());
+        return userMatch || bodyMatch;
+    });
 
   return (
     <div className="chat-room-container">
       <h1>Chat Room</h1>
+      <div className="search-input-container">
+        <label>Pretraga:</label>
+        <input
+          type="text"
+          value={searchTerm}
+          onChange={handleSearchChange}
+          className="search-input"
+        />
+      </div>
       <table className="chat-room-table">
         <thead>
           <tr>
@@ -75,7 +94,7 @@ const ChatRoom = () => {
           </tr>
         </thead>
         <tbody>
-          {messages.slice(-5).map((msg) => (
+          {filteredMessages.slice(-5).map((msg) => (
             <tr key={msg.id}>
               <td>{msg.id}</td>
               <td>{msg.body}</td>
