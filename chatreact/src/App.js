@@ -7,6 +7,7 @@ import Navbar from './komponente/navigacioniMeni/Navbar';
 import Pocetna from './komponente/pocetna/Pocetna';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'; 
 import ChatRooms from './komponente/chatRooms/ChatRooms';
+import ChatRoom from './komponente/chatRooms/ChatRoom';
 function App() {
   const [token,setToken] = useState(null);
   return (
@@ -17,6 +18,7 @@ function App() {
       <Route path="/" element={<Pocetna />} />
       <Route path="/auth" element={<AuthForm setToken={setToken}/>} />
       <Route path="/profile" element={<UserProfile />} />
+      <Route path="/chatrooms/:id" element={<ChatRoom/>} />
       <Route path="/chatrooms" element={<ChatRooms />} />
     </Routes>
   </Router>
