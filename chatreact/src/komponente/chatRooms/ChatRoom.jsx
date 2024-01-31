@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
 import './ChatRoom.css';
+import Message from './Message';
 
 const ChatRoom = () => {
   const [message, setMessage] = useState('');
@@ -95,11 +96,12 @@ const ChatRoom = () => {
         </thead>
         <tbody>
           {filteredMessages.slice(-5).map((msg) => (
-            <tr key={msg.id}>
-              <td>{msg.id}</td>
-              <td>{msg.body}</td>
-              <td>{msg.user.name}</td>
-            </tr>
+            <Message
+                key={msg.id}
+                id={msg.id}
+                body={msg.body}
+                userName={msg.user.name}
+          />
           ))}
         </tbody>
       </table>
