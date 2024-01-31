@@ -8,12 +8,28 @@ const ChatRooms = () => {
   const [chatRooms, setChatRooms] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [searchTerm, setSearchTerm] = useState('');
   const [currentPage, setCurrentPage] = useState(0);
   const perPage = 5;
 
   const handlePageClick = (event) => {
     setCurrentPage(event.selected);
   };
+ 
+
+  const handleSearchChange = (e) => {
+    setSearchTerm(e.target.value);
+    setCurrentPage(0);  
+  };
+
+    const filteredChatRooms = chatRooms.filter(
+      room =>
+        room.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        room.description.toLowerCase().includes(searchTerm.toLowerCase())
+        
+    );
+
+  
   const fetchChatRooms = useCallback(async () => {
     setLoading(true);
     try {
@@ -58,10 +74,17 @@ const ChatRooms = () => {
 
   if (loading) return <div>Loading...</div>;
   if (error) return <div>Error: {error.message}</div>;
-  const displayedChatRooms = chatRooms.slice(currentPage * perPage, (currentPage + 1) * perPage);
+  const displayedChatRooms = filteredChatRooms.slice(currentPage * perPage, (currentPage + 1) * perPage);
   return (
     <div className="chat-rooms-container">
       <h1>Available chat rooms</h1>
+      <input
+        type="text"
+        placeholder="Pretraga chat soba"
+        value={searchTerm}
+        onChange={handleSearchChange}
+        className="search-input"
+      />
       <table className="chat-rooms-table">
         <thead>
           <tr>
