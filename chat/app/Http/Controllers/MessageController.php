@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\MessageResource;
 use App\Models\Message;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
@@ -39,7 +40,7 @@ class MessageController extends Controller
          }
  
          $message = Message::create($validator->validated());
-         return response()->json($message, 201);
+         return response()->json(new MessageResource($message), 201);
      }
  
      // Ažurira postojeću poruku
@@ -70,5 +71,14 @@ class MessageController extends Controller
          $message = Message::findOrFail($id);
          $message->delete();
          return response()->json(null, 204);
+     }
+
+
+
+     // Prikazuje sve poruke u određenom chat roomu  - dodato za potrebe react domaceg i seminarskog rada
+     public function getChatRoomMessages($chatRoomId)
+     {
+         $messages = Message::where('chat_room_id', $chatRoomId)->get();
+         return MessageResource::collection($messages);
      }
 }

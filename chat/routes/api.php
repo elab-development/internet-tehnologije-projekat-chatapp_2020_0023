@@ -35,6 +35,7 @@ Route::get('/chat-rooms/search', [ChatRoomController::class, 'search']);  //http
 
 Route::middleware('auth:sanctum')->group(function () {
     Route::post('/logout', [AuthController::class, 'logout']);
+    Route::get('chat-rooms/messages/{chatRoomId}', [MessageController::class,'getChatRoomMessages']);
     Route::get('/user/profile', [AuthController::class, 'userProfile']);
     Route::put('/user/update', [AuthController::class, 'updateUser']);
     Route::post('/change-password', [AuthController::class, 'changePassword']);
@@ -50,7 +51,7 @@ Route::middleware('auth:sanctum')->group(function () {
     });
 
     Route::apiResource('chat-rooms', ChatRoomController::class);
-
+   
     Route::apiResource('messages', MessageController::class);
 
 });
