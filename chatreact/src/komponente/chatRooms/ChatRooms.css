@@ -38,4 +38,26 @@
     text-align: center;
     color: #37718e;
   }
+  .pagination {
+    display: flex;
+    justify-content: center;
+    list-style-type: none;
+    padding: 0;
+  }
   
+  .pagination li {
+    margin: 0 5px;
+  }
+  
+  .pagination li a {
+    cursor: pointer;
+    padding: 5px 10px;
+    border: 1px solid #37718e;
+    border-radius: 5px;
+  }
+  
+  .pagination li a:hover,
+  .pagination li.active a {
+    background-color: #37718e;
+    color: white;
+  }

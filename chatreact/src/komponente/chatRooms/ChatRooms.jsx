@@ -1,14 +1,19 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import axios from 'axios';
 import './ChatRooms.css'; 
-
+import ReactPaginate from 'react-paginate';
 const ChatRooms = () => {
   const authToken = localStorage.getItem('auth_token');
   const userId = localStorage.getItem('auth_id');
   const [chatRooms, setChatRooms] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [currentPage, setCurrentPage] = useState(0);
+  const perPage = 5;
 
+  const handlePageClick = (event) => {
+    setCurrentPage(event.selected);
+  };
   const fetchChatRooms = useCallback(async () => {
     setLoading(true);
     try {
@@ -53,7 +58,7 @@ const ChatRooms = () => {
 
   if (loading) return <div>Loading...</div>;
   if (error) return <div>Error: {error.message}</div>;
-
+  const displayedChatRooms = chatRooms.slice(currentPage * perPage, (currentPage + 1) * perPage);
   return (
     <div className="chat-rooms-container">
       <h1>Available chat rooms</h1>
@@ -68,7 +73,7 @@ const ChatRooms = () => {
           </tr>
         </thead>
         <tbody>
-          {chatRooms.map((room) => (
+         {displayedChatRooms.map((room) => (
             <tr key={room.id}>
               <td>{room.name}</td>
               <td>{room.is_private ? 'Yes' : 'No'}</td>
@@ -83,6 +88,18 @@ const ChatRooms = () => {
           ))}
         </tbody>
       </table>
+      <ReactPaginate
+        previousLabel={'Prethodna'}
+        nextLabel={'Sledeća'}
+        breakLabel={'...'}
+        pageCount={Math.ceil(chatRooms.length / perPage)}
+        marginPagesDisplayed={2}
+        pageRangeDisplayed={5}
+        onPageChange={handlePageClick}
+        containerClassName={'pagination'}
+        activeClassName={'active'}
+      />
+     
     </div>
   );
 };
