@@ -8,6 +8,7 @@ const ChatRoom = () => {
   const [message, setMessage] = useState('');
   const [messages, setMessages] = useState([]);
   const [searchTerm, setSearchTerm] = useState('');
+  const [funFact, setFunFact] = useState(''); // Dodajemo state za fun fact
   const userId = localStorage.getItem('auth_id');
   const authToken = localStorage.getItem('auth_token');
   const { id: chatRoomId } = useParams();
@@ -27,6 +28,26 @@ const ChatRoom = () => {
       console.error('Greška pri dobijanju poruka:', error);
     }
   };
+  
+  const fetchFunFact = async () => {
+    const apiKey = '7xiJG3ZG/DVXBFQcpnUANw==DCKsOuWEdluVhptV';  
+    const apiUrl = 'https://api.api-ninjas.com/v1/facts?limit=1';
+  
+    try {
+      const response = await axios.get(apiUrl, {
+        headers: {
+          'X-Api-Key': apiKey
+        }
+      });
+  
+      if (response.data) {
+        setFunFact(response.data[0].fact);
+      }
+    } catch (error) {
+      console.error('Error fetching Fun Fact:', error);
+    }
+  };
+  
 
   useEffect(() => {
     fetchChatRoomMessages();
@@ -36,6 +57,10 @@ const ChatRoom = () => {
     // Očisti interval pri povlačenju komponente
     return () => clearInterval(intervalId);
   }, [chatRoomId]);
+
+  useEffect(() => {
+    fetchFunFact(); // Pozivamo funkciju za dohvatanje fun fact-a
+  }, []); // Prazan niz znači da će se pozvati samo jednom prilikom montiranja komponente
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -64,19 +89,23 @@ const ChatRoom = () => {
       console.error('Greška pri kreiranju poruke:', error);
     }
   };
-    const handleSearchChange = (e) => {
-        setSearchTerm(e.target.value);
-    };
+  const handleSearchChange = (e) => {
+    setSearchTerm(e.target.value);
+  };
 
-    const filteredMessages = messages.filter((msg) => {
-        const userMatch = msg.user.name.toLowerCase().includes(searchTerm.toLowerCase());
-        const bodyMatch = msg.body.toLowerCase().includes(searchTerm.toLowerCase());
-        return userMatch || bodyMatch;
-    });
+  const filteredMessages = messages.filter((msg) => {
+    const userMatch = msg.user.name.toLowerCase().includes(searchTerm.toLowerCase());
+    const bodyMatch = msg.body.toLowerCase().includes(searchTerm.toLowerCase());
+    return userMatch || bodyMatch;
+  });
 
   return (
     <div className="chat-room-container">
       <h1>Chat Room</h1>
+    
+      <div className="fun-fact">
+        <p>{funFact}</p>
+      </div>
       <div className="search-input-container">
         <label>Pretraga:</label>
         <input
@@ -97,11 +126,11 @@ const ChatRoom = () => {
         <tbody>
           {filteredMessages.slice(-5).map((msg) => (
             <Message
-                key={msg.id}
-                id={msg.id}
-                body={msg.body}
-                userName={msg.user.name}
-          />
+              key={msg.id}
+              id={msg.id}
+              body={msg.body}
+              userName={msg.user.name}
+            />
           ))}
         </tbody>
       </table>

@@ -16,6 +16,10 @@
   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2); 
   background-color: #8ee3ef;  
   border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 
 .profile-image {
@@ -24,6 +28,8 @@
   border-radius: 50%;
   margin-bottom: 20px;  
   border: 3px solid #37718e;  
+  font-size: 80px;
+    padding: 15px;
 }
 
 .edit-button,
@@ -104,19 +110,52 @@ h2 {
 }
 
 .user-chat-rooms h2 {
-  margin-bottom: 10px;
+  text-align: center;
+  margin-bottom: 20px;
 }
 
 .user-chat-rooms ul {
   list-style: none;
   padding: 0;
+  max-width: 600px; 
+  margin: auto;  
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);  
+  border-radius: 10px;  
+  background-color: #ffffff; 
 }
 
 .user-chat-rooms li {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
   margin-bottom: 10px;
+  padding: 10px; 
+  text-align: center; 
+  border-bottom: 1px solid #eaeaea; 
 }
 
 .user-chat-rooms button {
-  margin-left: 10px;
+  padding: 5px 15px;
+  background-color: #37718e;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
  
+}
+.user-chat-rooms li:last-child {
+  border-bottom: none;  
+}
+
+.user-chat-rooms button {
+  padding: 5px 15px;  
+  margin-top: 8px; 
+  background-color: #37718e;  
+  color: white;  
+  border: none;  
+  border-radius: 5px;  
+  cursor: pointer;   
+}
+.user-chat-rooms button:hover {
+  background-color: #c33c54;  
 }

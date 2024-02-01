@@ -82,25 +82,21 @@ const UserProfile = () => {
   if (error) {
     return <div>Error: {error}</div>;
   }
-
-
-
-
-
-
-
+ 
   const handleOpenRoom = (roomId) => {
     navigate(`/chatrooms/${roomId}`);
   };
 return (
   <div className="user-profile-container">
   <div className="user-info-display">
-        <img
-          src={userData.profile_image ? `http://127.0.0.1:8000/storage/${userData.profile_image}` : 'default-profile.png'}
-          alt="Profile"
-          className="profile-image"
-        />
-
+      {/* <img
+      src={userData.profile_image ? `http://127.0.0.1:8000/storage/${userData.profile_image}` : <FaUser />}
+      alt="Profile"
+      className="profile-image"
+    /> */}
+    <div  className="profile-image">
+      {userData.profile_image ? null : <FaUser />}
+    </div>
         <h2><FaUser /> {userData.name}</h2>
         <p><FaEnvelope /> {userData.email}</p>
         <p><FaBirthdayCake /> {userData.date_of_birth}</p>
@@ -115,7 +111,7 @@ return (
         <ul>
           {chatRooms.map((room) => (
             <li key={room.id}>
-              {room.name}
+              {room.name} 
               <button onClick={() => handleOpenRoom(room.id)}>Otvori</button>
             </li>
           ))}
