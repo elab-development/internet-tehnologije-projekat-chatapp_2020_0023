@@ -7,11 +7,11 @@ import useUserData from '../korDefKuke/useUserData';
 const UserProfile = () => {
   const auth_token = localStorage.getItem('auth_token');
   const { userData, loading, error, setUserData } = useUserData(auth_token);  
-  const [newPasswordData, setNewPasswordData] = useState({
-    current_password: '',
-    new_password: '',
-    new_password_confirmation: '',
-  });
+  // const [newPasswordData, setNewPasswordData] = useState({
+  //   current_password: '',
+  //   new_password: '',
+  //   new_password_confirmation: '',
+  // });
   const [chatRooms, setChatRooms] = useState([]);
   const navigate = useNavigate();
   const [isEditing, setIsEditing] = useState(false); 
@@ -21,10 +21,10 @@ const UserProfile = () => {
     setUserData({ ...userData, [name]: value });
   };
 
-  const handlePasswordChange = (e) => {
-    const { name, value } = e.target;
-    setNewPasswordData({ ...newPasswordData, [name]: value });
-  };
+  // // const handlePasswordChange = (e) => {
+  // //   const { name, value } = e.target;
+  // //   setNewPasswordData({ ...newPasswordData, [name]: value });
+  // // };
 
   const handleProfileUpdate = async (e) => {
     e.preventDefault();
@@ -41,24 +41,24 @@ const UserProfile = () => {
     }
   };
 
-  const handleChangePassword = async (e) => {
-    e.preventDefault();
-    try {
-      const response = await axios.post('http://127.0.0.1:8000/api/change-password', newPasswordData, {
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem('auth_token')}`,
-        },
-      });
-      console.log('Password changed:', response.data);
-      setNewPasswordData({
-        current_password: '',
-        new_password: '',
-        new_password_confirmation: '',
-      });
-    } catch (error) {
-      console.error('Change password error:', error.response.data);
-    }
-  };
+  // const handleChangePassword = async (e) => {
+  //   e.preventDefault();
+  //   try {
+  //     const response = await axios.post('http://127.0.0.1:8000/api/change-password', newPasswordData, {
+  //       headers: {
+  //         Authorization: `Bearer ${localStorage.getItem('auth_token')}`,
+  //       },
+  //     });
+  //     console.log('Password changed:', response.data);
+  //     setNewPasswordData({
+  //       current_password: '',
+  //       new_password: '',
+  //       new_password_confirmation: '',
+  //     });
+  //   } catch (error) {
+  //     console.error('Change password error:', error.response.data);
+  //   }
+  // };
   useEffect(() => {
     const fetchChatRooms = async () => {
       try {

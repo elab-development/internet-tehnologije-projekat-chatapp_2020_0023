@@ -15,7 +15,7 @@ const Navbar = ({token,setToken}) => {
       });
 
       
-      sessionStorage.removeItem('auth_token');
+      localStorage.clear();
 
       
       setToken(null);
@@ -36,17 +36,19 @@ const Navbar = ({token,setToken}) => {
           Početna
         </Link>
         {token ? (  
-          <button onClick={handleLogout} className="nav-item">
+          <>          <button onClick={handleLogout} className="nav-item">
             Odjavi se
           </button>
+           <Link to="/profile" className="nav-item">
+           Moj Profil
+         </Link></>
+
         ) : (
           <Link to="/auth" className="nav-item">
             Autentifikacija
           </Link>
         )}
-        <Link to="/profile" className="nav-item">
-          Moj Profil
-        </Link>
+       
       </div>
     </nav>
   );

@@ -8,8 +8,8 @@ const AuthForm = ({setToken}) => {
   const [isLogin, setIsLogin] = useState(true);
   const [formData, setFormData] = useState({
     name: '',
-    email: '',
-    password: '',
+    email: 'franecki.amparo@example.com',
+    password: 'password',
     confirmPassword: '',
     date_of_birth: '',
     bio: '',
@@ -17,7 +17,7 @@ const AuthForm = ({setToken}) => {
   });
 
   const handleInputChange = (e) => {
-    const { name, value } = e.target;
+    const { name, value } = e.target; 
     setFormData({ ...formData, [name]: value });
   };
 
@@ -56,6 +56,7 @@ const AuthForm = ({setToken}) => {
           },
         });
         console.log(response.data);
+        setIsLogin(true);
       } catch (error) {
         console.error('Registration error:', error.response.data);
         alert(error.response.data.message.toString()); 
