@@ -8,6 +8,7 @@ import Pocetna from './komponente/pocetna/Pocetna';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'; 
 import ChatRooms from './komponente/chatRooms/ChatRooms';
 import ChatRoom from './komponente/chatRooms/ChatRoom';
+import Admin from './komponente/admin/Admin';
 function App() {
   const [token,setToken] = useState(null);
   return (
@@ -22,9 +23,9 @@ function App() {
       <Route path="/chatrooms" element={<ChatRooms />} />
 
 
+      <Route path="/admin" element={<Admin />} />
 
 
-      
     </Routes>
   </Router>
   );

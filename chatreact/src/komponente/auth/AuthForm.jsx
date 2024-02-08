@@ -37,7 +37,13 @@ const AuthForm = ({setToken}) => {
         localStorage.setItem("auth_token",response.data.token);
         localStorage.setItem("auth_id",response.data.user.id);
         setToken(response.data.token)
-        navigate('/chatrooms')
+        if(response.data.user.role=="admin"){
+          navigate('/admin')
+        }else{ 
+          navigate('/chatrooms')
+
+        }
+       
       } catch (error) {
         console.error('Login error:', error.response.data);
         alert(error.response.data.message.toString()); 

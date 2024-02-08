@@ -114,4 +114,17 @@ class ChatRoomController extends Controller
         return response()->json($chatRooms);
     }
 
+
+
+    
+
+    public function statistics()
+    {
+        // Dohvati sve chat sobe sa brojem korisnika koji su im pridruženi
+        $chatRooms = ChatRoom::withCount('participants')->get();
+        
+        // Vrati rezultat kao JSON
+        return response()->json($chatRooms);
+    }
+
 }

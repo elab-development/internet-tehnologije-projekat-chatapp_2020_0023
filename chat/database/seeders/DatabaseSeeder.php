@@ -19,6 +19,12 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
+        User::create([
+            'name' => 'Admin',
+            'email' => 'admin@example.com',
+            'password' => bcrypt('password'),  
+            'role' => 'admin',  
+        ]);
          User::factory(10)->create();
          ChatRoom::factory(10)->create();
          Message::factory(10)->create();
