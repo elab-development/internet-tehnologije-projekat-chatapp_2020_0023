@@ -20,6 +20,11 @@ function App() {
       <Route path="/profile" element={<UserProfile />} />
       <Route path="/chatrooms/:id" element={<ChatRoom/>} />
       <Route path="/chatrooms" element={<ChatRooms />} />
+
+
+
+
+      
     </Routes>
   </Router>
   );

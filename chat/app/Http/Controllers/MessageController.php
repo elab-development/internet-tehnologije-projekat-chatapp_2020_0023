@@ -38,8 +38,11 @@ class MessageController extends Controller
          if ($validator->fails()) {
              return response()->json($validator->errors(), 400);
          }
- 
          $message = Message::create($validator->validated());
+
+        // Emitujte MessageSent event sa instancom kreirane poruke //ovo sluzi za implementaciju soketa, kako bi mogli klijenti da cetuju realtime
+        event(new \App\Events\MessageSent($message));
+         
          return response()->json(new MessageResource($message), 201);
      }
  

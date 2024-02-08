@@ -4,6 +4,19 @@ import { useParams } from 'react-router-dom';
 import './ChatRoom.css';
 import Message from './Message';
 
+
+//za implementaciju web soketa
+import Echo from 'laravel-echo';
+
+window.Pusher = require('pusher-js');
+
+window.Echo = new Echo({
+  broadcaster: 'pusher',
+  key: 'fe8b8e72f5dfc49bfe8d',
+  cluster: 'eu',
+  forceTLS: true
+});
+
 const ChatRoom = () => {
   const [message, setMessage] = useState('');
   const [messages, setMessages] = useState([]);
@@ -13,6 +26,25 @@ const ChatRoom = () => {
   const authToken = localStorage.getItem('auth_token');
   const { id: chatRoomId } = useParams();
 
+
+  useEffect(() => { 
+    // Implementacija web soketa
+    
+    const channel = window.Echo.private(`chat.${chatRoomId}`);
+  
+    channel.listen('.message.sent', (e) => {
+      // Dodajte novu poruku na listu poruka
+      setMessages(messages => [...messages, e.message]);
+    });
+  
+    // Očistite i prekinite slušanje na kanalu kada se komponenta demontira
+    return () => {
+      channel.stopListening('.message.sent');
+      window.Echo.leaveChannel(`chat.${chatRoomId}`);
+    };
+  }, []);  
+  
+  
   const fetchChatRoomMessages = async () => {
     try {
       const response = await axios.get(
