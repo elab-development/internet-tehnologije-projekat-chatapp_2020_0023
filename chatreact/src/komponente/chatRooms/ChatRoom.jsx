@@ -169,6 +169,8 @@ const ChatRoom = () => {
                 setMessages(messages.filter((msg) => msg.id !== deletedMessageId));
               }}
               authToken={authToken}
+              messages={messages}
+              setMessages={setMessages}
             />
           ))}
         </tbody>
