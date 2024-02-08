@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\ChatRoom;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
@@ -122,9 +123,23 @@ class ChatRoomController extends Controller
     {
         // Dohvati sve chat sobe sa brojem korisnika koji su im pridruženi
         $chatRooms = ChatRoom::withCount('participants')->get();
+    
+        // Ukupan broj svih korisnika
+        $totalUsers = User::count();
+    
+        // Ukupan broj chat soba
+        $totalChatRooms = ChatRoom::count();
         
+        // Kreiraj asocijativni niz sa dodatnim informacijama
+        $statisticsData = [
+            'chat_rooms' => $chatRooms,
+            'total_users' => $totalUsers,
+            'total_chat_rooms' => $totalChatRooms
+        ];
+    
         // Vrati rezultat kao JSON
-        return response()->json($chatRooms);
+        return response()->json($statisticsData);
     }
+    
 
 }
