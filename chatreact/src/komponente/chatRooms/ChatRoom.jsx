@@ -153,6 +153,7 @@ const ChatRoom = () => {
             <th>ID</th>
             <th>Poruka</th>
             <th>Korisnik</th>
+            <th>Obrisi</th>
           </tr>
         </thead>
         <tbody>
@@ -162,6 +163,12 @@ const ChatRoom = () => {
               id={msg.id}
               body={msg.body}
               userName={msg.user.name}
+              userId={msg.user_id}
+              loggedInUserId={Number(userId)}
+              onDelete={(deletedMessageId) => {
+                setMessages(messages.filter((msg) => msg.id !== deletedMessageId));
+              }}
+              authToken={authToken}
             />
           ))}
         </tbody>
