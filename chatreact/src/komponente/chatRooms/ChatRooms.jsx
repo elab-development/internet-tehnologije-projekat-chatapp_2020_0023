@@ -1,7 +1,8 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import axios from 'axios';
-import './ChatRooms.css'; 
+import './ChatRooms.css';
 import ReactPaginate from 'react-paginate';
+
 const ChatRooms = () => {
   const authToken = localStorage.getItem('auth_token');
   const userId = localStorage.getItem('auth_id');
@@ -10,26 +11,40 @@ const ChatRooms = () => {
   const [error, setError] = useState(null);
   const [searchTerm, setSearchTerm] = useState('');
   const [currentPage, setCurrentPage] = useState(0);
+  const [sortBy, setSortBy] = useState(null); // State for sorting
   const perPage = 5;
 
   const handlePageClick = (event) => {
     setCurrentPage(event.selected);
   };
- 
 
   const handleSearchChange = (e) => {
     setSearchTerm(e.target.value);
-    setCurrentPage(0);  
+    setCurrentPage(0);
   };
 
-    const filteredChatRooms = chatRooms.filter(
-      room =>
-        room.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        room.description.toLowerCase().includes(searchTerm.toLowerCase())
-        
-    );
+  const handleSort = () => {
+    // Toggle sorting between ascending and descending order
+    setSortBy(sortBy === 'asc' ? 'desc' : 'asc');
+  };
 
-  
+  const sortedChatRooms = chatRooms.sort((a, b) => {
+    // Sort alphabetically by room name
+    if (sortBy === 'asc') {
+      return a.name.localeCompare(b.name);
+    } else if (sortBy === 'desc') {
+      return b.name.localeCompare(a.name);
+    } else {
+      return 0; // No sorting
+    }
+  });
+
+  const filteredChatRooms = sortedChatRooms.filter(
+    (room) =>
+      room.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      room.description.toLowerCase().includes(searchTerm.toLowerCase())
+  );
+
   const fetchChatRooms = useCallback(async () => {
     setLoading(true);
     try {
@@ -66,7 +81,7 @@ const ChatRooms = () => {
           },
         }
       );
-      fetchChatRooms();  
+      fetchChatRooms();
     } catch (error) {
       console.error('Error joining room:', error.response.data);
     }
@@ -85,6 +100,9 @@ const ChatRooms = () => {
         onChange={handleSearchChange}
         className="search-input"
       />
+      <button onClick={handleSort}>
+        Sortiraj {sortBy === 'asc' ? 'Opadajuće' : 'Rastuće'}
+      </button>
       <table className="chat-rooms-table">
         <thead>
           <tr>
@@ -96,7 +114,7 @@ const ChatRooms = () => {
           </tr>
         </thead>
         <tbody>
-         {displayedChatRooms.map((room) => (
+          {displayedChatRooms.map((room) => (
             <tr key={room.id}>
               <td>{room.name}</td>
               <td>{room.is_private ? 'Yes' : 'No'}</td>
@@ -122,7 +140,6 @@ const ChatRooms = () => {
         containerClassName={'pagination'}
         activeClassName={'active'}
       />
-     
     </div>
   );
 };

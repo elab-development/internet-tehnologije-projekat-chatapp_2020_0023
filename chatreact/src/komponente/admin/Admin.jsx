@@ -25,8 +25,17 @@ import {
     const [brojKorisnika, setBrojKorisnika] = useState(0);
     const [brojChatRooms, setBrojChatRooms] = useState(0);
   
-    useEffect(() => {
-      axios.get('http://127.0.0.1:8000/api/statistics')
+    useEffect(() => { 
+      const token = localStorage.getItem('auth_token');
+    
+       
+      const config = {
+        headers: {
+          'Authorization': `Bearer ${token}`
+        }
+      };
+    
+      axios.get('http://127.0.0.1:8000/api/statistics', config)
         .then(response => {
           setStatistics(response.data.chat_rooms);
           setBrojKorisnika(response.data.total_users)
@@ -36,6 +45,7 @@ import {
           console.error('Error fetching statistics:', error);
         });
     }, []);
+    
   
     const chartData = {
       labels: statistics.map(room => room.name),

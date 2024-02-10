@@ -8,7 +8,7 @@ const AuthForm = ({setToken}) => {
   const [isLogin, setIsLogin] = useState(true);
   const [formData, setFormData] = useState({
     name: '',
-    email: 'franecki.amparo@example.com',
+    email: 'jayda32@example.org',
     password: 'password',
     confirmPassword: '',
     date_of_birth: '',

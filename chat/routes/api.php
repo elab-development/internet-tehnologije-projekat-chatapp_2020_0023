@@ -30,7 +30,6 @@ Route::get('/users/search', [AuthController::class, 'searchUsers']);
 Route::get('/chat-rooms/search', [ChatRoomController::class, 'search']);  //http://127.0.0.1:8000/api/chat-rooms/search?name="aa"&is_private=false
 
 
-Route::get('/statistics', [ChatRoomController::class, 'statistics']);
 
 
 
@@ -55,4 +54,5 @@ Route::middleware('auth:sanctum')->group(function () {
    
     Route::apiResource('messages', MessageController::class);
 
+    Route::get('/statistics', [ChatRoomController::class, 'statistics']);
 });

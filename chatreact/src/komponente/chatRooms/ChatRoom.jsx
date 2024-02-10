@@ -3,7 +3,7 @@ import axios from 'axios';
 import { useParams } from 'react-router-dom';
 import './ChatRoom.css';
 import Message from './Message';
-
+import { useQuery, useQueryClient } from 'react-query'; //za keseiranje
 
 //za implementaciju web soketa
 import Echo from 'laravel-echo';
@@ -21,11 +21,23 @@ const ChatRoom = () => {
   const [message, setMessage] = useState('');
   const [messages, setMessages] = useState([]);
   const [searchTerm, setSearchTerm] = useState('');
-  const [funFact, setFunFact] = useState(''); // Dodajemo state za fun fact
+ // const [funFact, setFunFact] = useState(''); // Dodajemo state za fun fact
   const userId = localStorage.getItem('auth_id');
   const authToken = localStorage.getItem('auth_token');
   const { id: chatRoomId } = useParams();
 
+
+  //posto radimo kesiranje podataka za funFact, malo menjamo kod 
+  const queryClient = useQueryClient();
+  const { data: funFact, isLoading: isLoadingFunFact, error: funFactError } = useQuery('funFact', async () => {
+    const apiKey = 'QxMU0Daw1G4sRqVm6vPxjIB216188KMvISmtSJ1K';
+    const response = await axios.get('https://api.api-ninjas.com/v1/facts?limit=1', {
+      headers: {
+        'X-Api-Key': apiKey
+      }
+    });
+    return response.data[0].fact;
+  });
 
   useEffect(() => { 
     // Implementacija web soketa
@@ -61,26 +73,30 @@ const ChatRoom = () => {
     }
   };
   
-  const fetchFunFact = async () => {
-    const apiKey = '7xiJG3ZG/DVXBFQcpnUANw==DCKsOuWEdluVhptV';  
-    const apiUrl = 'https://api.api-ninjas.com/v1/facts?limit=1';
+  // const fetchFunFact = async () => {  //ovo nam ne treba vise jer smo ucitali podatk ena drugi nacin zbog kesiranja
+  //   const apiKey = 'QxMU0Daw1G4sRqVm6vPxjIB216188KMvISmtSJ1K';  
+  //   const apiUrl = 'https://api.api-ninjas.com/v1/facts?limit=1';
   
-    try {
-      const response = await axios.get(apiUrl, {
-        headers: {
-          'X-Api-Key': apiKey
-        }
-      });
+  //   try {
+  //     const response = await axios.get(apiUrl, {
+  //       headers: {
+  //         'X-Api-Key': apiKey
+  //       }
+  //     });
   
-      if (response.data) {
-        setFunFact(response.data[0].fact);
-      }
-    } catch (error) {
-      console.error('Error fetching Fun Fact:', error);
-    }
-  };
+  //     if (response.data) {
+  //       setFunFact(response.data[0].fact);
+  //     }
+  //   } catch (error) {
+  //     console.error('Error fetching Fun Fact:', error);
+  //   }
+  // };
   
+ // useEffect(() => {
+  //   fetchFunFact(); // Pozivamo funkciju za dohvatanje fun fact-a
+  // }, []); // Prazan niz znači da će se pozvati samo jednom prilikom montiranja komponente
 
+  
   useEffect(() => {
     fetchChatRoomMessages();
     // Postavljanje intervala za periodično osvežavanje svakih 5 sekundi
@@ -90,9 +106,7 @@ const ChatRoom = () => {
     return () => clearInterval(intervalId);
   }, [chatRoomId]);
 
-  useEffect(() => {
-    fetchFunFact(); // Pozivamo funkciju za dohvatanje fun fact-a
-  }, []); // Prazan niz znači da će se pozvati samo jednom prilikom montiranja komponente
+ 
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -153,7 +167,7 @@ const ChatRoom = () => {
             <th>ID</th>
             <th>Poruka</th>
             <th>Korisnik</th>
-            <th>Obrisi</th>
+            <th>Akcije</th>
           </tr>
         </thead>
         <tbody>
